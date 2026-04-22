@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Garden - Fine Dining Restaurant</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f9f9f9;
+            color: #333;
+        }
+
+        header {
+            background: linear-gradient(135deg, #1a472a 0%, #2d5016 100%);
+            color: white;
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            text-decoration: none;
+            color: white;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 30px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+
+        nav a:hover {
+            opacity: 0.8;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: #d4a574;
+            color: white;
+            text-decoration: none;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .btn:hover {
+            background: #c49460;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(212, 165, 116, 0.4);
+        }
+
+        .banner {
+            background: linear-gradient(135deg, #1a472a 0%, #2d5016 100%);
+            color: white;
+            padding: 100px 20px;
+            text-align: center;
+        }
+
+        .banner h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .banner p {
+            font-size: 20px;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            font-size: 36px;
+            margin-bottom: 40px;
+            text-align: center;
+            color: #2d5016;
+            font-weight: bold;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .menu-section {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .menu-header {
+            background: linear-gradient(135deg, #2d5016 0%, #1a472a 100%);
+            color: white;
+            padding: 20px;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .menu-items {
+            padding: 20px;
+        }
+
+        .menu-item {
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .menu-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .item-name {
+            font-size: 18px;
+            font-weight: bold;
+            color: #2d5016;
+            margin-bottom: 5px;
+        }
+
+        .item-description {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+
+        .item-price {
+            font-size: 18px;
+            color: #d4a574;
+            font-weight: bold;
+        }
+
+        .reservation-section {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .form-grid.full {
+            grid-template-columns: 1fr;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #2d5016;
+            font-size: 14px;
+        }
+
+        .form-group input, .form-group select, .form-group textarea {
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            font-family: inherit;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: #2d5016;
+            box-shadow: 0 0 5px rgba(45, 80, 22, 0.3);
+        }
+
+        .reserve-btn {
+            grid-column: 1 / -1;
+            padding: 15px;
+            background: #2d5016;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .reserve-btn:hover {
+            background: #1a472a;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 60px;
+        }
+
+        .info-box {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .info-box h3 {
+            margin-bottom: 10px;
+            color: #2d5016;
+            font-size: 20px;
+        }
+
+        .info-box p {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 200;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            overflow-y: auto;
+        }
+
+        .modal-content {
+            background: white;
+            margin: 50px auto;
+            padding: 30px;
+            width: 90%;
+            max-width: 500px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #2d5016;
+        }
+
+        .modal-header h2 {
+            color: #2d5016;
+        }
+
+        .close {
+            font-size: 28px;
+            font-weight: bold;
+            color: #2d5016;
+            cursor: pointer;
+        }
+
+        .close:hover {
+            opacity: 0.7;
+        }
+
+        footer {
+            background: #2d5016;
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 60px;
+        }
+
+        @media (max-width: 600px) {
+            .banner h1 {
+                font-size: 32px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            nav a {
+                margin-left: 15px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <a href="#" class="logo">The Garden</a>
+            <nav>
+                <a onclick="scrollTo('menu')">Menu</a>
+                <a onclick="openReservation()">Reserve Table</a>
+                <a onclick="scrollTo('contact')">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="banner">
+        <h1>The Garden Restaurant</h1>
+        <p>Farm to Table Dining Experience</p>
+        <button class="btn" onclick="openReservation()">Book a Table</button>
+    </div>
+
+    <div class="container">
+        <h2 class="section-title" id="menu">Our Menu</h2>
+        <div class="menu-grid">
+            <div class="menu-section">
+                <div class="menu-header">APPETIZERS</div>
+                <div class="menu-items">
+                    <div class="menu-item">
+                        <div class="item-name">Garden Salad</div>
+                        <div class="item-description">Fresh mixed greens with seasonal vegetables and house vinaigrette</div>
+                        <div class="item-price">$12.00</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-name">Bruschetta Medley</div>
+                        <div class="item-description">Toasted bread with tomato, garlic, basil and olive oil</div>
+                        <div class="item-price">$10.00</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-name">Soup of the Day</div>
+                        <div class="item-description">Chef's seasonal selection with fresh ingredients</div>
+                        <div class="item-price">$8.00</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-section">
+                <div class="menu-header">MAIN COURSES</div>
+                <div class="menu-items">
+                    <div class="menu-item">
+                        <div class="item-name">Grilled Salmon</div>
+                        <div class="item-description">Wild caught salmon with seasonal vegetables and lemon butter sauce</div>
+                        <div class="item-price">$28.00</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-name">Pasta Primavera</div>
+                        <div class="item-description">Fresh pasta with seasonal vegetables in light garlic olive oil</div>
+                        <div class="item-price">$18.00</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-name">Ribeye Steak</div>
+                        <div class="item-description">Prime cut 12oz ribeye with garlic herb butter and seasonal sides</div>
+                        <div class="item-price">$35.00</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-section">
+                <div class="menu-header">DESSERTS</div>
+                <div class="menu-items">
+                    <div class="menu-item">
+                        <div class="item-name">Chocolate Cake</div>
+                        <div class="item-description">Rich chocolate cake with ganache frosting and fresh berries</div>
+                        <div class="item-price">$8.00</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-name">New York Cheesecake</div>
+                        <div class="item-description">Classic cheesecake with strawberry compote</div>
+                        <div class="item-price">$9.00</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-name">Fruit Sorbet</div>
+                        <div class="item-description">Refreshing seasonal fruit sorbet with choice of three flavors</div>
+                        <div class="item-price">$7.00</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2 class="section-title">Why Dine With Us?</h2>
+        <div class="info-grid">
+            <div class="info-box">
+                <h3>Expert Chefs</h3>
+                <p>Our renowned chefs create culinary masterpieces using the finest ingredients</p>
+            </div>
+            <div class="info-box">
+                <h3>Farm Fresh</h3>
+                <p>All ingredients sourced from local farms for maximum freshness and flavor</p>
+            </div>
+            <div class="info-box">
+                <h3>Ambiance</h3>
+                <p>Elegant setting perfect for celebrations, business dinners, or romantic dates</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container" id="contact">
+        <h2 class="section-title">Contact Information</h2>
+        <div class="info-grid">
+            <div class="info-box">
+                <h3>Location</h3>
+                <p>123 Main Street<br>New York, NY 10001</p>
+            </div>
+            <div class="info-box">
+                <h3>Phone</h3>
+                <p>(555) 123-4567<br>reservations@thegarden.com</p>
+            </div>
+            <div class="info-box">
+                <h3>Hours</h3>
+                <p>Mon-Thu: 11am - 10pm<br>Fri-Sat: 11am - 11pm<br>Sun: 10am - 9pm</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="reservationModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Reserve a Table</h2>
+                <span class="close" onclick="closeReservation()">&times;</span>
+            </div>
+            <form onsubmit="submitReservation(event)">
+                <div class="form-grid full">
+                    <div class="form-group">
+                        <label>Full Name *</label>
+                        <input type="text" required>
+                    </div>
+                </div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Email *</label>
+                        <input type="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Phone *</label>
+                        <input type="tel" required>
+                    </div>
+                </div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Date *</label>
+                        <input type="date" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Time *</label>
+                        <input type="time" required>
+                    </div>
+                </div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Number of Guests *</label>
+                        <select required>
+                            <option value="">-- Select --</option>
+                            <option value="1">1 Guest</option>
+                            <option value="2">2 Guests</option>
+                            <option value="3">3 Guests</option>
+                            <option value="4">4 Guests</option>
+                            <option value="5">5 Guests</option>
+                            <option value="6">6 Guests</option>
+                            <option value="7">7+ Guests</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Special Occasion</label>
+                        <select>
+                            <option value="">-- Select --</option>
+                            <option value="birthday">Birthday</option>
+                            <option value="anniversary">Anniversary</option>
+                            <option value="engagement">Engagement</option>
+                            <option value="business">Business Dinner</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-grid full">
+                    <div class="form-group">
+                        <label>Special Requests</label>
+                        <textarea rows="4" placeholder="Any special dietary requirements or preferences?"></textarea>
+                    </div>
+                </div>
+                <button type="submit" class="reserve-btn">Confirm Reservation</button>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 The Garden Restaurant. All rights reserved. | Fine Dining Experience</p>
+    </footer>
+
+    <script>
+        function openReservation() {
+            document.getElementById('reservationModal').style.display = 'block';
+        }
+
+        function closeReservation() {
+            document.getElementById('reservationModal').style.display = 'none';
+        }
+
+        function submitReservation(e) {
+            e.preventDefault();
+            alert('SUCCESS: Reservation Confirmed!\n\nThank you for choosing The Garden.\nWe look forward to welcoming you!');
+            closeReservation();
+        }
+
+        function scrollTo(section) {
+            document.getElementById(section).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('reservationModal');
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>

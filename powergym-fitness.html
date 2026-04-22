@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PowerGym - Fitness Center</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f0f0;
+            color: #333;
+        }
+
+        header {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+            color: white;
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            text-decoration: none;
+            color: white;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 30px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+
+        nav a:hover {
+            opacity: 0.8;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: #ffd700;
+            color: #333;
+            text-decoration: none;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .btn:hover {
+            background: #ffed4e;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 215, 0, 0.4);
+        }
+
+        .banner {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+            color: white;
+            padding: 100px 20px;
+            text-align: center;
+        }
+
+        .banner h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .banner p {
+            font-size: 20px;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            font-size: 36px;
+            margin-bottom: 40px;
+            text-align: center;
+            color: #ff6b6b;
+            font-weight: bold;
+        }
+
+        .classes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .class-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+
+        .class-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+
+        .class-icon {
+            width: 100%;
+            height: 150px;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            color: white;
+            font-weight: bold;
+        }
+
+        .class-info {
+            padding: 20px;
+        }
+
+        .class-name {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #ff6b6b;
+        }
+
+        .class-schedule {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .membership-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .membership-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .membership-card.popular {
+            border: 3px solid #ff6b6b;
+            transform: scale(1.05);
+        }
+
+        .membership-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+
+        .membership-header {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+        .membership-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .membership-price {
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .membership-period {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .membership-features {
+            padding: 30px 20px;
+        }
+
+        .feature {
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+            font-size: 14px;
+        }
+
+        .feature:last-child {
+            border-bottom: none;
+        }
+
+        .feature-check {
+            color: #ff6b6b;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .join-btn {
+            width: 100%;
+            padding: 15px;
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-top: 20px;
+        }
+
+        .join-btn:hover {
+            background: #ee5a6f;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .form-group input, .form-group select {
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            font-family: inherit;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: #ff6b6b;
+            box-shadow: 0 0 5px rgba(255, 107, 107, 0.3);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 200;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            overflow-y: auto;
+        }
+
+        .modal-content {
+            background: white;
+            margin: 50px auto;
+            padding: 30px;
+            width: 90%;
+            max-width: 500px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #ff6b6b;
+        }
+
+        .modal-header h2 {
+            color: #ff6b6b;
+        }
+
+        .close {
+            font-size: 28px;
+            font-weight: bold;
+            color: #ff6b6b;
+            cursor: pointer;
+        }
+
+        .close:hover {
+            opacity: 0.7;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .submit-btn:hover {
+            background: #ee5a6f;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 60px;
+        }
+
+        .info-box {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .info-box h3 {
+            margin-bottom: 10px;
+            color: #ff6b6b;
+        }
+
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 60px;
+        }
+
+        .popular-badge {
+            position: absolute;
+            top: 20px;
+            right: -30px;
+            background: #ffd700;
+            color: #333;
+            padding: 5px 40px;
+            transform: rotate(45deg);
+            font-weight: bold;
+            font-size: 12px;
+        }
+
+        @media (max-width: 600px) {
+            .banner h1 {
+                font-size: 32px;
+            }
+
+            .membership-card.popular {
+                transform: scale(1);
+            }
+
+            .header-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            nav a {
+                margin-left: 15px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <a href="#" class="logo">PowerGym</a>
+            <nav>
+                <a onclick="scrollTo('classes')">Classes</a>
+                <a onclick="scrollTo('membership')">Membership</a>
+                <a onclick="openContact()">Join Now</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="banner">
+        <h1>Transform Your Body, Transform Your Life</h1>
+        <p>State-of-the-art fitness facilities and expert trainers</p>
+        <button class="btn" onclick="openContact()">Start Your Journey</button>
+    </div>
+
+    <div class="container">
+        <h2 class="section-title" id="classes">Our Classes</h2>
+        <div class="classes-grid">
+            <div class="class-card">
+                <div class="class-icon">STRENGTH</div>
+                <div class="class-info">
+                    <div class="class-name">Strength Training</div>
+                    <div class="class-schedule">Mon, Wed, Fri - 6:00 PM</div>
+                    <p>Build muscle and increase your strength with our professional trainers.</p>
+                </div>
+            </div>
+            <div class="class-card">
+                <div class="class-icon">YOGA</div>
+                <div class="class-info">
+                    <div class="class-name">Yoga & Flexibility</div>
+                    <div class="class-schedule">Tue, Thu, Sat - 7:00 AM</div>
+                    <p>Improve flexibility, balance, and mental peace with yoga sessions.</p>
+                </div>
+            </div>
+            <div class="class-card">
+                <div class="class-icon">CARDIO</div>
+                <div class="class-info">
+                    <div class="class-name">Cardio Bootcamp</div>
+                    <div class="class-schedule">Daily - 5:30 PM</div>
+                    <p>High-intensity cardio workouts to burn calories and improve endurance.</p>
+                </div>
+            </div>
+            <div class="class-card">
+                <div class="class-icon">HIIT</div>
+                <div class="class-info">
+                    <div class="class-name">HIIT Training</div>
+                    <div class="class-schedule">Mon, Wed, Fri - 7:30 PM</div>
+                    <p>High-Intensity Interval Training for maximum results in minimum time.</p>
+                </div>
+            </div>
+            <div class="class-card">
+                <div class="class-icon">BOXING</div>
+                <div class="class-info">
+                    <div class="class-name">Boxing Classes</div>
+                    <div class="class-schedule">Tue, Thu, Sat - 6:00 PM</div>
+                    <p>Learn boxing techniques and get an amazing full-body workout.</p>
+                </div>
+            </div>
+            <div class="class-card">
+                <div class="class-icon">CYCLING</div>
+                <div class="class-info">
+                    <div class="class-name">Spin Classes</div>
+                    <div class="class-schedule">Daily - 6:00 AM & 6:30 PM</div>
+                    <p>Energetic cycling classes set to motivating music and rhythm.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2 class="section-title" id="membership">Membership Plans</h2>
+        <div class="membership-grid">
+            <div class="membership-card">
+                <div class="membership-header">
+                    <div class="membership-name">Basic</div>
+                    <div class="membership-price">$29</div>
+                    <div class="membership-period">per month</div>
+                </div>
+                <div class="membership-features">
+                    <div class="feature"><span class="feature-check">✓</span> Gym Access</div>
+                    <div class="feature"><span class="feature-check">✓</span> Cardio Equipment</div>
+                    <div class="feature"><span class="feature-check">✓</span> Weight Training</div>
+                    <div class="feature"><span class="feature-check">✓</span> Locker Room Access</div>
+                </div>
+                <button class="join-btn" onclick="openMembership('Basic - $29/month')">Choose Plan</button>
+            </div>
+
+            <div class="membership-card popular">
+                <div class="popular-badge">POPULAR</div>
+                <div class="membership-header">
+                    <div class="membership-name">Premium</div>
+                    <div class="membership-price">$59</div>
+                    <div class="membership-period">per month</div>
+                </div>
+                <div class="membership-features">
+                    <div class="feature"><span class="feature-check">✓</span> All Basic Features</div>
+                    <div class="feature"><span class="feature-check">✓</span> Unlimited Classes</div>
+                    <div class="feature"><span class="feature-check">✓</span> Personal Trainer (2x/month)</div>
+                    <div class="feature"><span class="feature-check">✓</span> Sauna & Steam Room</div>
+                    <div class="feature"><span class="feature-check">✓</span> Nutrition Consultation</div>
+                </div>
+                <button class="join-btn" onclick="openMembership('Premium - $59/month')">Choose Plan</button>
+            </div>
+
+            <div class="membership-card">
+                <div class="membership-header">
+                    <div class="membership-name">Elite</div>
+                    <div class="membership-price">$99</div>
+                    <div class="membership-period">per month</div>
+                </div>
+                <div class="membership-features">
+                    <div class="feature"><span class="feature-check">✓</span> All Premium Features</div>
+                    <div class="feature"><span class="feature-check">✓</span> Private Training</div>
+                    <div class="feature"><span class="feature-check">✓</span> VIP Lounge Access</div>
+                    <div class="feature"><span class="feature-check">✓</span> Priority Booking</div>
+                    <div class="feature"><span class="feature-check">✓</span> Guest Passes (4x/month)</div>
+                </div>
+                <button class="join-btn" onclick="openMembership('Elite - $99/month')">Choose Plan</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2 class="section-title">Why Choose PowerGym?</h2>
+        <div class="info-grid">
+            <div class="info-box">
+                <h3>Modern Equipment</h3>
+                <p>Latest gym equipment and technology for optimal training</p>
+            </div>
+            <div class="info-box">
+                <h3>Expert Trainers</h3>
+                <p>Certified professionals to guide you on your fitness journey</p>
+            </div>
+            <div class="info-box">
+                <h3>Community</h3>
+                <p>Join a supportive community of fitness enthusiasts</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="membershipModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="planTitle">Membership Signup</h2>
+                <span class="close" onclick="closeMembership()">&times;</span>
+            </div>
+            <form onsubmit="submitMembership(event)">
+                <div class="form-group">
+                    <label>Full Name *</label>
+                    <input type="text" required>
+                </div>
+                <div class="form-group">
+                    <label>Email *</label>
+                    <input type="email" required>
+                </div>
+                <div class="form-group">
+                    <label>Phone *</label>
+                    <input type="tel" required>
+                </div>
+                <div class="form-group">
+                    <label>Age *</label>
+                    <input type="number" required>
+                </div>
+                <div class="form-group">
+                    <label>Fitness Goal *</label>
+                    <select required>
+                        <option value="">-- Select --</option>
+                        <option value="weight-loss">Weight Loss</option>
+                        <option value="muscle-gain">Muscle Gain</option>
+                        <option value="endurance">Endurance</option>
+                        <option value="flexibility">Flexibility</option>
+                        <option value="general">General Fitness</option>
+                    </select>
+                </div>
+                <button type="submit" class="submit-btn">Complete Signup</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="contactModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Contact Information</h2>
+                <span class="close" onclick="closeContact()">&times;</span>
+            </div>
+            <div style="text-align: center; padding: 20px;">
+                <p style="margin-bottom: 15px;"><strong>LOCATION:</strong><br>456 Fitness Street, New York, NY 10002</p>
+                <p style="margin-bottom: 15px;"><strong>PHONE:</strong><br>(555) 987-6543</p>
+                <p style="margin-bottom: 15px;"><strong>HOURS:</strong><br>Mon-Fri: 5:00 AM - 11:00 PM<br>Sat-Sun: 6:00 AM - 10:00 PM</p>
+                <button class="btn" onclick="closeContact()" style="margin-top: 20px;">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 PowerGym Fitness Center. All rights reserved. | Transform Your Life Today!</p>
+    </footer>
+
+    <script>
+        function openMembership(plan) {
+            document.getElementById('planTitle').textContent = 'Join ' + plan;
+            document.getElementById('membershipModal').style.display = 'block';
+        }
+
+        function closeMembership() {
+            document.getElementById('membershipModal').style.display = 'none';
+        }
+
+        function openContact() {
+            document.getElementById('contactModal').style.display = 'block';
+        }
+
+        function closeContact() {
+            document.getElementById('contactModal').style.display = 'none';
+        }
+
+        function submitMembership(e) {
+            e.preventDefault();
+            alert('SUCCESS: Membership Signup Successful!\n\nWelcome to PowerGym!\nYour membership has been activated.\nCheck your email for login details!');
+            closeMembership();
+        }
+
+        function scrollTo(section) {
+            document.getElementById(section).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        window.onclick = function(event) {
+            const membershipModal = document.getElementById('membershipModal');
+            const contactModal = document.getElementById('contactModal');
+            if (event.target === membershipModal) membershipModal.style.display = 'none';
+            if (event.target === contactModal) contactModal.style.display = 'none';
+        }
+    </script>
+</body>
+</html>
